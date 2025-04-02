@@ -19,30 +19,21 @@ def find_longest_substring(s: str) -> str:
     
     # Initialize variables to track the longest substring
     longest_substring = ""
-    current_substring = ""
-    
-    # Use a dictionary to track character positions
+    start = 0
     char_positions = {}
     
-    for i, char in enumerate(s):
-        # If character is already in current substring, reset substring
-        if char in char_positions:
-            # Check if current substring is longer than previous longest
+    for end, char in enumerate(s):
+        # If character is already seen and its last position is after or at the start index
+        if char in char_positions and char_positions[char] >= start:
+            # Move the start to the next position after the last occurrence
+            start = char_positions[char] + 1
+        else:
+            # Update longest substring if current substring is longer
+            current_substring = s[start:end+1]
             if len(current_substring) > len(longest_substring):
                 longest_substring = current_substring
-            
-            # Reset current substring to start after the previous occurrence
-            prev_index = char_positions[char]
-            current_substring = s[prev_index + 1:i + 1]
-        else:
-            # Extend current substring
-            current_substring += char
         
-        # Update character position
-        char_positions[char] = i
-    
-    # Final check after loop
-    if len(current_substring) > len(longest_substring):
-        longest_substring = current_substring
+        # Update the last seen position of the character
+        char_positions[char] = end
     
     return longest_substring
