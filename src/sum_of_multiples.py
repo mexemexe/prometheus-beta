@@ -29,13 +29,15 @@ def sum_of_multiples(limit, multiples):
     # Use a set to track unique multiples
     unique_multiples = set()
     
-    # Find multiples for each unique number in the list
+    # Find unique multiples for each number in the list
     for m in unique_multiples_list:
-        # Find multiples of m up to the limit
-        multiple = m
-        while multiple <= limit:
-            unique_multiples.add(multiple)
-            multiple += m
+        # Start from the first multiple of m that is <= limit
+        current_multiple = m
+        while current_multiple <= limit:
+            # Only add if this multiple is not already in the set
+            if current_multiple not in unique_multiples:
+                unique_multiples.add(current_multiple)
+            current_multiple += m
     
     # Return the sum of unique multiples
     return sum(unique_multiples)
