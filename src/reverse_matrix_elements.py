@@ -12,12 +12,17 @@ def reverse_matrix_elements(matrix):
     Raises:
         ValueError: If the matrix is not square or size is invalid.
     """
-    # Validate matrix is square
-    if not matrix or len(matrix) != len(matrix[0]):
+    # Validate matrix is non-empty
+    if not matrix:
         raise ValueError("Matrix must be square and non-empty")
 
-    # Validate matrix size
+    # Validate matrix is square
     n = len(matrix)
+    for row in matrix:
+        if len(row) != n:
+            raise ValueError("Matrix must be square")
+
+    # Validate matrix size
     if n < 1 or n > 1000:
         raise ValueError("Matrix size must be between 1 and 1000")
 
