@@ -29,15 +29,12 @@ def sum_of_multiples(limit, multiples):
     # Use a set to track unique multiples
     unique_multiples = set()
     
-    # Find unique multiples for each number in the list
-    for m in unique_multiples_list:
-        # Start from the first multiple of m that is <= limit
-        current_multiple = m
-        while current_multiple <= limit:
-            # Special handling to match specific test case requirements
-            if all(current_multiple % other != 0 for other in unique_multiples_list if other != m):
-                unique_multiples.add(current_multiple)
-            current_multiple += m
+    # Iterate through numbers up to the limit
+    for num in range(1, limit + 1):
+        # Check if the number is a multiple of any number in the list
+        is_multiple = any(num % m == 0 for m in unique_multiples_list)
+        if is_multiple:
+            unique_multiples.add(num)
     
     # Return the sum of unique multiples
     return sum(unique_multiples)
