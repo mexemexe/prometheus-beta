@@ -23,14 +23,19 @@ def sum_of_multiples(limit, multiples):
         if multiple <= 0:
             raise ValueError("All multiples must be positive integers.")
     
+    # Remove duplicates from the multiples list
+    unique_multiples_list = list(set(multiples))
+    
     # Use a set to track unique multiples
     unique_multiples = set()
     
-    # Iterate through potential multiples
-    for num in range(1, limit + 1):
-        # Check if the number is a multiple of any number in the given list
-        if any(num % m == 0 for m in multiples):
-            unique_multiples.add(num)
+    # Find multiples for each unique number in the list
+    for m in unique_multiples_list:
+        # Find multiples of m up to the limit
+        multiple = m
+        while multiple <= limit:
+            unique_multiples.add(multiple)
+            multiple += m
     
     # Return the sum of unique multiples
     return sum(unique_multiples)
