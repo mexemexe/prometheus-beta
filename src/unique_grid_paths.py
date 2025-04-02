@@ -1,28 +1,32 @@
-def count_unique_paths(m: int, n: int) -> int:
+def search_matrix(matrix, target):
     """
-    Count the number of unique paths from top-left to bottom-right 
-    in an m x n grid, moving only right or down.
+    Search for a target integer in a matrix of unique integers.
     
     Args:
-        m (int): Number of rows in the grid
-        n (int): Number of columns in the grid
+        matrix (List[List[int]]): A 2D matrix of unique integers
+        target (int): The integer to search for in the matrix
     
     Returns:
-        int: Number of unique paths
+        bool: True if the target is found, False otherwise
     
     Raises:
-        ValueError: If m or n is less than 1
+        ValueError: If the input matrix is empty or not a valid 2D list
+    
+    Time Complexity: O(T*R), where T is number of rows and R is number of columns
+    Space Complexity: O(1)
     """
-    # Validate input
-    if m < 1 or n < 1:
-        raise ValueError("Grid dimensions must be positive integers")
+    # Check for empty or invalid matrix
+    if not matrix or not matrix[0]:
+        raise ValueError("Matrix cannot be empty")
     
-    # Initialize DP table
-    dp = [[1] * n for _ in range(m)]
+    # Validate matrix structure 
+    if not all(len(row) == len(matrix[0]) for row in matrix):
+        raise ValueError("All rows must have the same length")
     
-    # Calculate unique paths
-    for i in range(1, m):
-        for j in range(1, n):
-            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    # Linear search through the entire matrix
+    for row in matrix:
+        for cell in row:
+            if cell == target:
+                return True
     
-    return dp[m-1][n-1]
+    return False
