@@ -28,7 +28,7 @@ def test_complex_palindrome_subsequences():
 
 def test_mixed_characters():
     """Test palindrome subsequences with mixed characters"""
-    assert longest_palindrome_subsequence("forgeeksskeegfor") == 5  # "geeks"
+    assert longest_palindrome_subsequence("forgeeksskeegfor") == 12  # full "forgeeksskeegfor" is a palindrome
     assert longest_palindrome_subsequence("abcda") == 3  # "aca"
 
 def test_repeated_characters():
