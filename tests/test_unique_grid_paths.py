@@ -1,32 +1,51 @@
 import pytest
-from src.unique_grid_paths import count_unique_paths
+from src.unique_grid_paths import search_matrix
 
-def test_standard_grid_paths():
-    """Test paths for common grid sizes"""
-    assert count_unique_paths(2, 3) == 3
-    assert count_unique_paths(3, 2) == 3
-    assert count_unique_paths(3, 3) == 6
+def test_search_matrix_target_present():
+    """Test matrix search when target is present"""
+    matrix = [
+        [1, 3, 5],
+        [7, 9, 11],
+        [13, 15, 17]
+    ]
+    assert search_matrix(matrix, 9) == True
+    assert search_matrix(matrix, 1) == True
+    assert search_matrix(matrix, 17) == True
 
-def test_single_row_column():
-    """Test paths for single row or column grids"""
-    assert count_unique_paths(1, 5) == 1
-    assert count_unique_paths(5, 1) == 1
+def test_search_matrix_target_not_present():
+    """Test matrix search when target is not present"""
+    matrix = [
+        [1, 3, 5],
+        [7, 9, 11],
+        [13, 15, 17]
+    ]
+    assert search_matrix(matrix, 2) == False
+    assert search_matrix(matrix, 10) == False
+    assert search_matrix(matrix, 100) == False
 
-def test_large_grid():
-    """Test paths for larger grid"""
-    assert count_unique_paths(10, 10) == 48620
+def test_search_matrix_single_element():
+    """Test matrix search with a single-element matrix"""
+    matrix = [[42]]
+    assert search_matrix(matrix, 42) == True
+    assert search_matrix(matrix, 43) == False
 
-def test_small_grid():
-    """Test paths for small grid"""
-    assert count_unique_paths(1, 1) == 1
+def test_search_matrix_rectangular():
+    """Test matrix search with rectangular matrix"""
+    matrix = [
+        [1, 2, 3],
+        [4, 5, 6]
+    ]
+    assert search_matrix(matrix, 4) == True
+    assert search_matrix(matrix, 6) == True
+    assert search_matrix(matrix, 7) == False
 
-def test_invalid_input():
-    """Test error handling for invalid grid dimensions"""
-    with pytest.raises(ValueError, match="Grid dimensions must be positive integers"):
-        count_unique_paths(0, 5)
+def test_search_matrix_invalid_input():
+    """Test error handling for invalid matrix inputs"""
+    with pytest.raises(ValueError, match="Matrix cannot be empty"):
+        search_matrix([], 5)
     
-    with pytest.raises(ValueError, match="Grid dimensions must be positive integers"):
-        count_unique_paths(5, 0)
+    with pytest.raises(ValueError, match="Matrix cannot be empty"):
+        search_matrix([[]], 5)
     
-    with pytest.raises(ValueError, match="Grid dimensions must be positive integers"):
-        count_unique_paths(-1, 5)
+    with pytest.raises(ValueError, match="All rows must have the same length"):
+        search_matrix([[1, 2], [3]], 5)
