@@ -1,6 +1,6 @@
 def sum_of_multiples(limit, multiples):
     """
-    Calculate the sum of all multiples of given numbers up to a limit.
+    Calculate the sum of all unique multiples of given numbers up to a limit.
 
     Args:
         limit (int): The upper bound (inclusive) for finding multiples.
@@ -23,14 +23,17 @@ def sum_of_multiples(limit, multiples):
         if multiple <= 0:
             raise ValueError("All multiples must be positive integers.")
     
+    # Remove duplicates from the multiples list
+    unique_multiples_list = list(set(multiples))
+    
     # Use a set to store unique multiples
     unique_multiples = set()
     
-    # Find all unique multiples for each number in the multiples list
-    for multiple in multiples:
+    # Find all unique multiples for each number in the unique multiples list
+    for multiple in unique_multiples_list:
         # Generate multiples of the current number up to the limit
         current_multiples = range(multiple, limit + 1, multiple)
         unique_multiples.update(current_multiples)
     
-    # Return the sum of unique multiples
-    return sum(unique_multiples)
+    # Return the sum of unique multiples that do not exceed the limit
+    return sum(multiple for multiple in unique_multiples if multiple <= limit)
