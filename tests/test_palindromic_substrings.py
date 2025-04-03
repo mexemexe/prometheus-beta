@@ -25,7 +25,8 @@ def test_all_same_char():
 def test_long_palindrome():
     """Test a longer palindromic string"""
     result = find_palindromic_substrings("racecar")
-    assert set(result) == set(['r', 'a', 'c', 'e', 'racecar'])
+    expected = set(['r', 'a', 'c', 'e', 'racecar', 'aceca', 'cec'])
+    assert set(result) == expected
 
 def test_non_string_input():
     """Test handling of non-string input"""
