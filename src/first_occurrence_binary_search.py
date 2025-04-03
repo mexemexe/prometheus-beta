@@ -1,0 +1,50 @@
+def find_first_occurrence(arr, target):
+    """
+    Find the index of the first occurrence of a target number in a sorted array 
+    using binary search algorithm.
+
+    Args:
+        arr (list): A sorted array of positive integers
+        target (int): The target number to find
+
+    Returns:
+        int: Index of the first occurrence of the target, or -1 if not found
+
+    Raises:
+        TypeError: If input is not a list or target is not an integer
+        ValueError: If input list contains non-integer or negative values
+    """
+    # Input validation
+    if not isinstance(arr, list):
+        raise TypeError("Input must be a list")
+    
+    if not isinstance(target, int):
+        raise TypeError("Target must be an integer")
+    
+    # Check if array is empty
+    if not arr:
+        return -1
+    
+    # Validate array contents
+    if any(not isinstance(x, int) or x < 0 for x in arr):
+        raise ValueError("Array must contain only positive integers")
+    
+    # Binary search implementation
+    left, right = 0, len(arr) - 1
+    result = -1
+
+    while left <= right:
+        mid = (left + right) // 2
+        
+        if arr[mid] == target:
+            # Found a match, but continue searching left for first occurrence
+            result = mid
+            right = mid - 1
+        elif arr[mid] < target:
+            # Target is in the right half
+            left = mid + 1
+        else:
+            # Target is in the left half
+            right = mid - 1
+    
+    return result
