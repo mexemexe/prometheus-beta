@@ -24,7 +24,7 @@ def test_find_triplets_duplicate_elements():
     # Case with duplicate elements
     arr = [-1, -1, 0, 1, 2, 2]
     target_sum = 2
-    expected = [[-1, 0, 3], [-1, 1, 2]]
+    expected = [[-1, 1, 2]]
     result = find_triplets_with_sum(arr, target_sum)
     
     # Sort the results to compare regardless of order
